@@ -10,7 +10,7 @@ function PDFViewer() {
   return (
     <div className="w-screen h-screen bg-gray-100 flex flex-col items-center justify-center p-1 space-y-4">
       <iframe
-  src={`http://localhost:3000/api/files/serve/${objectId}`}
+  src={`${import.meta.env.VITE_API_BACKEND_URL}/api/files/serve/${objectId}`}
   title="Secure PDF"
   width="90%"
   height="90%"

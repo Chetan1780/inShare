@@ -56,7 +56,7 @@ function Home() {
     setUploadSuccess(null); 
 
     try {
-      const resp = await fetch('http://localhost:3000/api/files/upload', {
+      const resp = await fetch(`${import.meta.env.VITE_API_BACKEND_URL}/api/files/upload`, {
         method: 'POST',
         body: formData,
       });
