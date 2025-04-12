@@ -7,6 +7,9 @@ const connect = require("./config/connectDb")
 app.use(cors());
 
 app.use("/api/files", fileRoutes);
+app.get('/testing',(req,res)=>{
+  res.send("working perfectly fine!!")
+})
 
 const startServer = async ()=>{
     try {
@@ -23,7 +26,4 @@ const startServer = async ()=>{
 }
 
 // testing api 
-app.get('/testing',(req,res)=>{
-  res.send("working perfectly fine!!")
-})
 startServer();
