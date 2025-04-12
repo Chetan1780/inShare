@@ -1,0 +1,27 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+@layer components {
+  .img {
+    width: 70px;
+    position: absolute;
+    transform-origin: bottom;
+    transition: transform 250ms;
+  }
+  .icon-container .right, .icon-container .left{
+    filter: grayscale(0.5);
+  }
+  .dragged {
+    background-color: #eff5fe;
+  }
+  .dragged .icon-container .right{
+    transform: rotate(16deg) translateX(18px) scale(.9); 
+  }
+  .dragged .icon-container .left{
+    transform: rotate(-16deg) translateX(-18px) scale(0.9);
+  }
+  .dragged .icon-container .center{
+    transform: translateY(-4px);
+  }
+  /* ... */
+}
