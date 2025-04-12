@@ -7,7 +7,7 @@ const connect = require("./config/connectDb")
 app.use(cors());
 
 app.use("/api/files", fileRoutes);
-app.get('/testing',(req,res)=>{
+app.get('/api/testing',(req,res)=>{
   res.send("working perfectly fine!!")
 })
 
