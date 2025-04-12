@@ -4,7 +4,9 @@ const cors = require('cors');
 const port = process.env.port || 3000;
 const fileRoutes = require("./routes/fileRoutes");
 const connect = require("./config/connectDb")
-app.use(cors());
+app.use(cors({
+  origin:process.env.FRONTEND_URL,
+}));
 
 app.use("/api/files", fileRoutes);
 app.get('/api/testing',(req,res)=>{
