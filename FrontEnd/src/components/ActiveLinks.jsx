@@ -17,9 +17,9 @@ const ActiveLinks = ({ userId,upload }) => {
     useEffect(() => {
         const fetchLinks = async () => {
             try {
-                const response = await fetch(
+                    const response = await fetch(
                     `${import.meta.env.VITE_API_BACKEND_URL}/api/files/active_links/${userId}`,
-                    {
+                    {   method:'GET',
                         credentials: 'include',
                     }
                 )
