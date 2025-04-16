@@ -1,14 +1,21 @@
 const express = require('express');
+const cookieParser = require('cookie-parser');
 const app = express();
 const cors = require('cors');
 const port = process.env.port || 3000;
 const fileRoutes = require("./routes/fileRoutes");
-const connect = require("./config/connectDb")
+const connect = require("./config/connectDb");
+const userRoute = require('./routes/AuthRoutes');
 app.use(cors({
   origin:process.env.FRONTEND_URL,
+  credentials:true
 }));
 
+app.use(express.json());
+app.use(cookieParser());
+
 app.use("/api/files", fileRoutes);
+app.use("/api/user",userRoute);
 app.get('/api/testing',(req,res)=>{
   res.send("working perfectly fine!!")
 })

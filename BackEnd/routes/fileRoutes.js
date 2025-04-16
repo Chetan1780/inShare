@@ -1,8 +1,10 @@
 const express = require('express');
 const upload = require('../config/multer')
-const {uploadPdf, servePdf}  = require('../Controller/FileController')
+const {uploadPdf, servePdf,getLinks}  = require('../Controller/FileController')
+const authenticate = require('../Middleware/authenticate');
 const route = express.Router();
-route.post('/upload',upload.single('file'),uploadPdf)
-route.get('/serve/:id', servePdf);
+route.get('/serve/:id',servePdf);
+route.post('/upload',authenticate,upload.single('file'),uploadPdf)
+route.get('/active_links/:id',authenticate,getLinks);
 
 module.exports = route;

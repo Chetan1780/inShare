@@ -6,16 +6,16 @@ function PDFViewer() {
   const [pdfUrl, setPdfUrl] = useState(null);
   const [error, setError] = useState(null);
 
-
+  const src = `${import.meta.env.VITE_API_BACKEND_URL}/api/files/serve/${objectId}`;
   return (
     <div className="w-screen h-screen bg-gray-100 flex flex-col items-center justify-center p-1 space-y-4">
       <iframe
-  src={`${import.meta.env.VITE_API_BACKEND_URL}/api/files/serve/${objectId}`}
-  title="Secure PDF"
-  width="90%"
-  height="90%"
-  className="shadow-lg border rounded"
-/>
+        src={src}
+        title="Secure PDF"
+        width="90%"
+        height="90%"
+        className="shadow-lg border rounded"
+      />
 
     </div>
   );

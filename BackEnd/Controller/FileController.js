@@ -1,16 +1,20 @@
 const upload = require("../config/multer")
 const cloudinary = require('../config/cloudinary');
+const File = require('../models/File'); 
+const handleError = require('../Helper/handleError')
+
 const DatauriParser = require('datauri/parser');
 const path = require('path');
-const File = require('../model/File'); 
-const parser = new DatauriParser();
-const ONE_DAY_IN_MS = 24 * 60 * 60 * 1000;
 const axios = require('axios');
 
-const uploadPdf = async (req, res) => {
+const parser = new DatauriParser();
+
+const uploadPdf = async (req, res,next) => {
     try {
+      
+      
       if (!req.file) {
-        return res.status(400).json({ message: 'No file uploaded' });
+        next(handleError(400,'No file uploaded!!'));
       }
   
       const ext = path.extname(req.file.originalname); 
@@ -20,12 +24,15 @@ const uploadPdf = async (req, res) => {
         resource_type: 'auto', 
         folder: 'pdfs'        
       });
+      destroyMediaAfter24Hours(result.public_id)
       const expiresAt = new Date();
-    expiresAt.setHours(expiresAt.getHours() + 24);
+      expiresAt.setHours(expiresAt.getHours() + 24);
 
-    const file = new File({
+      const file = new File({
+        fileOriginalName:req.file.originalname,
         cloudinary_Url: result.secure_url,
-        expiresAt: expiresAt
+        expiresAt: expiresAt,
+        owner:req.user.id
       });
       
       const savedFile = await file.save();
@@ -37,15 +44,15 @@ const uploadPdf = async (req, res) => {
       });
     } catch (error) {
       console.error('Cloudinary upload error:', error);
-      res.status(500).json({ message: 'Something went wrong' });
+      next(handleError(500,'Something went wrong!!'));
     }
   };
-const servePdf = async (req, res) => {
+const servePdf = async (req, res,next) => {
     try {
       const file = await File.findById(req.params.id);
   
       if (!file || new Date() > new Date(file.expiresAt)) {
-        return res.status(404).json({ message: 'File expired or not found' });
+        next(handleError(404,'file expire or not found!!'));
       }
   
       const cloudinaryUrl = file.cloudinary_Url;
@@ -62,9 +69,37 @@ const servePdf = async (req, res) => {
       response.data.pipe(res);
     } catch (err) {
       console.error(err);
-      res.status(500).json({ message: 'Failed to serve PDF' });
+      next(handleError(500,'Failed to serve PDF!!'));
     }
   };
+
+
+  const getLinks = async (req,res,next)=>{
+    try {
+      const id = req.params.id;
+      const file = await File.find({owner:id});
+      res.status(200).json({
+        success:true,
+        file,
+        name:req.user.name
+      })
+    } catch (error) {
+      next(handleError(500,error.message));
+    }
+  }
   
+  const destroyMediaAfter24Hours = (publicId) => {
+    const delay = 24 * 60 * 60 * 1000;
+    console.log(`Scheduled task to delete media with publicId: ${publicId} is triggered`);
+    setTimeout(() => {
+      cloudinary.uploader.destroy(publicId, (error, result) => {
+        if (error) {
+          console.error('Error destroying media:', error);
+        } else {
+          console.log('Media successfully destroyed:', result);
+        }
+      });
+    }, delay);
+  };
   
-module.exports = {uploadPdf,servePdf}
+module.exports = {uploadPdf,servePdf,getLinks}
