@@ -5,7 +5,7 @@ const authenticate = async (req,res,next)=>{
         // console.log("request coming");
         
         const token = req.cookies.token;
-        // console.log(token);
+        console.log(token);
         
         if(!token){
             return next(handleError(403,'Unauthorized acesss'));

@@ -58,7 +58,7 @@ const Uploader = ({ onUploadSuccess }) => {
 
   // const user = useSelector((state) => state.user);
   const handleSubmit = async () => {
-    // if (!user || !user.token) {
+    // if (!user.isLoggedIn && !user.user) {
     //   showToast("error", "Please log in to upload a file!", 0);
     //   return;
     // }
@@ -101,9 +101,9 @@ const Uploader = ({ onUploadSuccess }) => {
       setIsUploading(false);
       showToast("error", "File upload failed! Please try again.");
     };
-  
+
+    xhr.withCredentials=true
     xhr.open("POST", `${import.meta.env.VITE_API_BACKEND_URL}/api/files/upload`, true);
-    xhr.withCredentials = true;
     xhr.send(formData);
   };
   
