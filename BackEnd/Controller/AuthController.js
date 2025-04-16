@@ -43,10 +43,12 @@ const login = async (req, res, next) => {
             id: getUser._id,
             name: getUser.name,
         }, process.env.JWT_SECRET, { expiresIn: '10d' });
+
         res.cookie('token', jwtToken, {
             httpOnly: true,
             secure: process.env.NODE_ENV === 'production',
-            sameSite: 'strict',
+            sameSite: process.env.NODE_ENV === 'production'?'none':'strict',
+            path:'/',
             maxAge: 10 * 24 * 60 * 60 * 1000,
         });
         const newUser = getUser.toObject({ getters: true });
