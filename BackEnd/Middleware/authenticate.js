@@ -2,10 +2,10 @@ const jwt = require('jsonwebtoken');
 const handleError = require("../Helper/handleError")
 const authenticate = async (req,res,next)=>{
     try {
-        console.log("request coming");
+        // console.log("request coming");
         
         const token = req.cookies.token;
-        console.log(token);
+        // console.log(token);
         
         if(!token){
             return next(handleError(403,'Unauthorized acesss'));

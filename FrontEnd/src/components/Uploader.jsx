@@ -56,12 +56,12 @@ const Uploader = ({ onUploadSuccess }) => {
     }
   };
 
-  // const user = useSelector((state) => state.user);
+  const user = useSelector((state) => state.user);
   const handleSubmit = async () => {
-    // if (!user || !user.token) {
-    //   showToast("error", "Please log in to upload a file!", 0);
-    //   return;
-    // }
+    if (!user || !user.token) {
+      showToast("error", "Please log in to upload a file!", 0);
+      return;
+    }
   
     if (selectedFiles.length === 0) return;
   

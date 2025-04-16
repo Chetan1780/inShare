@@ -4,7 +4,7 @@ const { hashPassword, verifyPassword } = require('../Helper/hashPass');
 const jwt = require('jsonwebtoken');
 const register = async (req, res, next) => {
     try {
-        console.log('Enter register API!!');
+        // console.log('Enter register API!!');
         const { name, email, password } = req.body;
         const existingUser = await User.findOne({ email });
         if (existingUser) {
@@ -28,7 +28,7 @@ const register = async (req, res, next) => {
 }
 const login = async (req, res, next) => {
     try {
-        console.log('Enter Login API!!');
+        // console.log('Enter Login API!!');
         const { email, password } = req.body;
         const getUser = await User.findOne({ email });
         if (!getUser) {
@@ -51,6 +51,7 @@ const login = async (req, res, next) => {
             path:'/',
             maxAge: 10 * 24 * 60 * 60 * 1000,
         });
+
         const newUser = getUser.toObject({ getters: true });
         delete newUser.password;
         res.status(200).json({

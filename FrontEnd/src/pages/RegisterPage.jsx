@@ -61,7 +61,7 @@ const signupSchema = z
         try {
             schema.parse(data);
             
-            console.log("hit api");
+            // console.log("hit api");
             
             const api = isLogin ? 'api/user/login' : 'api/user/register';
             const resp = await fetch(`${import.meta.env.VITE_API_BACKEND_URL}/${api}`, {
@@ -88,7 +88,7 @@ const signupSchema = z
                 setIsLogin(true);
             } 
 
-            console.log('Form submitted:', data);
+            // console.log('Form submitted:', data);
         } catch (err) {
             showToast('error', err.message);
             if (err instanceof z.ZodError) {

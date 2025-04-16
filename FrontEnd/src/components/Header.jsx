@@ -29,7 +29,7 @@ const Header = () => {
         showToast('error', "Logout failed! Please try again."); 
       }
     } catch (error) {
-      console.error('Logout error:', error);
+      // console.error('Logout error:', error);
       showToast('error', "Logout failed! Please try again.", 0);
     }
   };

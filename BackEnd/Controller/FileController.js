@@ -43,7 +43,7 @@ const uploadPdf = async (req, res,next) => {
         id: savedFile._id
       });
     } catch (error) {
-      console.error('Cloudinary upload error:', error);
+      // console.error('Cloudinary upload error:', error);
       next(handleError(500,'Something went wrong!!'));
     }
   };
@@ -68,7 +68,7 @@ const servePdf = async (req, res,next) => {
   
       response.data.pipe(res);
     } catch (err) {
-      console.error(err);
+      // console.error(err);
       next(handleError(500,'Failed to serve PDF!!'));
     }
   };
@@ -90,7 +90,7 @@ const servePdf = async (req, res,next) => {
   
   const destroyMediaAfter24Hours = (publicId) => {
     const delay = 24 * 60 * 60 * 1000;
-    console.log(`Scheduled task to delete media with publicId: ${publicId} is triggered`);
+    // console.log(`Scheduled task to delete media with publicId: ${publicId} is triggered`);
     setTimeout(() => {
       cloudinary.uploader.destroy(publicId, (error, result) => {
         if (error) {
