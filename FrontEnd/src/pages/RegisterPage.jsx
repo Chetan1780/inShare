@@ -75,7 +75,7 @@ const signupSchema = z
             
             
             if (!resp.ok) {
-                throw new Error(result.message || 'Something went wrong');
+                throw new Error('Something went wrong');
             }
             const temp = await resp.json();
             if(isLogin && resp.ok){
