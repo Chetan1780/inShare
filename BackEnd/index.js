@@ -2,10 +2,14 @@ const express = require('express');
 const cookieParser = require('cookie-parser');
 const app = express();
 const cors = require('cors');
-const port = process.env.port || 3000;
 const fileRoutes = require("./routes/fileRoutes");
 const connect = require("./config/connectDb");
 const userRoute = require('./routes/AuthRoutes');
+const dotenv = require('dotenv');
+dotenv.config();
+
+
+const port = process.env.port || 3000;
 app.use(cors({
   origin:process.env.FRONTEND_URL,
   credentials:true
