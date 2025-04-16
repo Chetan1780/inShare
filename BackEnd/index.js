@@ -38,5 +38,4 @@ const startServer = async ()=>{
       }
 }
 
-// testing api 
 startServer();
