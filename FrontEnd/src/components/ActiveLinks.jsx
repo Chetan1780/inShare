@@ -10,10 +10,10 @@ import {
 import moment from 'moment'
 import { ExternalLink } from 'lucide-react'
 import { showToast } from '@/Helper/ShowToast'
-
+import { useSelector } from 'react-redux'
 const ActiveLinks = ({ userId,upload }) => {
     const [files, setFiles] = useState([])
-
+    const user = useSelector((state)=>state.user);
     useEffect(() => {
         const fetchLinks = async () => {
             try {
@@ -50,7 +50,7 @@ const ActiveLinks = ({ userId,upload }) => {
                         </TableRow>
                     </TableHeader>
                     <TableBody>
-                        {files.length > 0 ? (
+                        { user.isLoggedIn && files.length > 0 ? (
                             files.map((file) => (
                                 <TableRow key={file._id} className="hover:bg-gray-50 transition">
                                     <TableCell className="font-medium text-gray-800">

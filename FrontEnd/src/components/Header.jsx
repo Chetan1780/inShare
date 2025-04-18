@@ -20,11 +20,10 @@ const Header = () => {
   
       if (resp.ok) {
         dispatch(logout()); 
-        
-        showToast('success', "Logout successful!", 0,1000);  
-        setTimeout(() => {
-          window.location.reload();
-        }, 1500);
+        // showToast('success', "Logout successful!", 0,1000);  
+        // setTimeout(() => {
+        //   window.location.reload();
+        // }, 1500);
       } else {
         showToast('error', "Logout failed! Please try again."); 
       }
