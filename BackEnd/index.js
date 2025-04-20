@@ -17,6 +17,7 @@ app.use(cors({
 
 app.use(express.json());
 app.use(cookieParser());
+app.use(express.urlencoded({ extended: true, limit: '50mb' }));
 
 app.use("/api/files", fileRoutes);
 app.use("/api/user",userRoute);
@@ -33,8 +34,7 @@ const startServer = async ()=>{
         });
     
       } catch (error) {
-        // console.error('Failed to start server:', error);
-        process.exit(1);
+          process.exit(1);
       }
 }
 
